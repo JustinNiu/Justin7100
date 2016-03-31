@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="starter">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -16,300 +16,144 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/howler.min.js"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-controller="myCtrl">
 
     <ion-pane>
- <!--      <ion-header-bar class="bar-stable">
-        <h1 class="title">EarSketch</h1>
-      </ion-header-bar> -->
+      <ion-content>
+        <div class="row">
+          <div class="col col-25">
+            <h2 class="title">   MS project</h2>
 
-      <ion-content ng-controller = ExampleController>
+            <button class="button button-block button-dark" id = "mute">
+              MUte
+            </button>
 
+           
+          </div>
+
+
+          <div class="col col-75">
+            <div class="row">
+              <div class="col col-25 col-offset-75">
+                <label class="item item-input">
+                <input type="number" placeholder="Set Temple">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
       
 
+        <button class="button button-block button-stable" id="btn">Play</button>
+    
+        
 
-      <div class="row">
-        <div class="col col-25">
-          
-          <h2 class="title">   EarSketch</h2>
-          
+        <button class="button button-block button-stable" id="btn2">Play2</button>
+        <button class="button button-block button-stable" id="btn21">Play2FadeIn</button>
+        <button class="button button-block button-stable" id="btn3" ng-click="clicked()">Play3</button>
+        
+        <input ng-model="loop1" id="startPoint" ng-change="checkValue()">
 
-          <button class="button button-block button-dark">
-            Show time
-          </button>
-
-          <button class="button button-block button-dark">
-            Undo
-          </button>
-
-          <button class="button button-block button-dark">
-            Run
-          </button>
-
-          <button class="button button-block button-dark">
-            Save
-          </button>
+      <!--   <div class="list">
+          <label class="item item-input item-select">
+            <div class="input-label">
+              L
+            </div>
+            <select ng-model="loop1">
+              <option>1000</option>
+              <option>2000</option>
+            </select>
+          </label>
         </div>
+ -->
 
 
-        <div class="col col-75">
-         
-          <div class="row">
-            <div class="col col-25 col-offset-75">
-              <label class="item item-input">
-              <input type="number" ng-model="setTemple" placeholder="Set Temple">
-              </label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col col-20 ">
-              <div class="row">
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Mute
-                </button></div>
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Solo
-                </button></div>
-              </div> 
+              <!-- <label class="item item-input" id ="lastLong" >
+                <span class="input-label"></span>
+                <input type="tel" >
+              </label> -->
 
 
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      S
-                    </div>
-                    <select ng-model="choose1">
-                      <option>DRUMS_1</option>
-                      <option>ELECTRIC_PIANO_4</option>
-                    </select>
-                  </label>
-              </div>
-
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      L
-                    </div>
-                    <select ng-model="loop1">
-                      <option>1</option>
-                      <option>2</option>
-                    </select>
-                  </label>
-              </div>
-
-            </div>
-
-            <div class="col col-20 ">
-              <div class="row">
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Mute
-                </button></div>
-                <div class="col"><button class="button button-block button-small button-stable" ng-click="play('http://earsketch.gatech.edu/EarSketchWSDevelop/services/audio/getaudiosample?key=YG_NEW_FUNK_{{choose2}}&tempo={{setTemple}}&audioquality=0')">
-                  Solo</button>
-                </div>
-              </div> 
-
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      S
-                    </div>
-                    <select ng-model="choose2">
-                      <option>DRUMS_1</option>
-                      <option>ELECTRIC_PIANO_4</option>
-                    </select>
-                  </label>
-              </div>
-
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      L
-                    </div>
-                    <select ng-model="loop1">
-                      <option>1</option>
-                      <option>2</option>
-                    </select>
-                  </label>
-              </div>
-
-            </div>
-
-            <div class="col col-20 ">
-              <div class="row">
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Mute
-                </button></div>
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Solo
-                </button></div>
-              </div> 
-
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      S
-                    </div>
-                    <select ng-model="choose3">
-                      <option>DRUMS_1</option>
-                      <option>ELECTRIC_PIANO_4</option>
-                    </select>
-                  </label>
-              </div>
-
-            </div>
-
-            <div class="col col-20 ">
-              <div class="row">
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Mute
-                </button></div>
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Solo
-                </button></div>
-              </div> 
-
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      S
-                    </div>
-                    <select ng-model="choose4">
-                      <option>DRUMS_1</option>
-                      <option>ELECTRIC_PIANO_4</option>
-                    </select>
-                  </label>
-              </div>
-
-            </div>
-
-            <div class="col col-20 ">
-              <div class="row">
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Mute
-                </button></div>
-                <div class="col"><button class="button button-block button-small button-stable">
-                  Solo
-                </button></div>
-              </div> 
-
-              <div class="list">
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      S
-                    </div>
-                    <select ng-model="choose5">
-                      <option>DRUMS_1</option>
-                      <option>ELECTRIC_PIANO_4</option>
-                    </select>
-                  </label>
-              </div>
-
-              <div class="list">
-
-                <li class="item">
-                  place holder
-                </li>
-
-                <li class="item">
-                  place holder
-                </li>
-
-                <li class="item">
-                  place holder
-                </li>
-
-                <li class="item">
-                  place holder
-                </li>
-
-              </div>
-
-            </div>
-
-            
-
-          </div>
-
-        </div>
-      </div>     
-
-
-
-
-      <button class="button button-energized button-large">
-        Source
-      </button>
-
-      <button class="button button-balanced button-large">
-        Control
-      </button>
-
-
-      <button class="button button-outline icon icon ion-android-done">
-        FM
-      </button>
-      <button class="button button-outline icon icon ion-android-done">
-        MB
-      </button>
-
-
-      <button class="button button-outline" ng-click="play('http://earsketch.gatech.edu/EarSketchWSDevelop/services/audio/getaudiosample?key=YG_NEW_FUNK_DRUMS_1&tempo=120&audioquality=0
-      ')">FUNK_DRUMS_1</button>
-
-      <button class="button button-outline" ng-click="play('http://earsketch.gatech.edu/EarSketchWSDevelop/services/audio/getaudiosample?key=YG_NEW_FUNK_ELECTRIC_PIANO_4&tempo=120&audioquality=0
-      ')">FUNK_ELECTRIC_PIANO_4</button>
-
-
-      <button class="button button-outline" ng-click="play('/android_asset/www/mp3/1.wav')">Local Audio</button>
-
-
+        <div id="buttons"></div>
+        
 
 
 
       </ion-content>
 
-      <!-- <div class="bar bar-footer bar-dark">
 
-        <button class="button button-energized">
-          Source
-        </button>
+      <script>
 
-        <button class="button button-balanced button-large">
-          Control
-        </button>
+        var app = angular.module("starter", []);
+        app.controller("myCtrl", function($scope) {
+            // $scope.loop1 = document.getElementById('startPoint').value;
+            $scope.loop1 = 1;
+            $scope.loop2 = 280;
 
-      
-        <button class="button button-outline icon icon ion-android-done">
-          FM
-        </button>
-        <button class="button button-outline icon icon ion-android-done">
-          MB
-        </button>
+            $scope.clicked = function () {
+              console.log($scope.loop1);
+            }
 
-        <button class="button button-outline" ng-click="play('http://earsketch.gatech.edu/EarSketchWSDevelop/services/audio/getaudiosample?key=DUBSTEP_BASS_WOBBLE_001&tempo=120&audioquality=0
-      ')">Play from internet3</button>
+            $scope.checkValue = function () {
+              console.log($scope.loop1);
+            }
 
-        <button class="button button-outline" ng-click="play('http://www.stephaniequinn.com/Music/Commercial%20DEMO%20-%2013.mp3')">Play from internet</button>
+            // $scope.lastName = "Doe";
+        });
 
-        <button class="button button-outline" ng-click="play('http://earsketch.gatech.edu/EarSketchWSDevelop/services/audio/getaudiosample?key=DUBSTEP_BASS_WOBBLE_005&tempo=120&audioquality=0
-        ')">Play from internet2</button>
+        var pong = new Howl({urls: ['http://www.javascriptoo.com/application/html/pong.wav']})
+        document.getElementById('btn').onclick=function(){pong.play()}
 
-        <button class="button button-outline" ng-click="play('/android_asset/www/mp3/1.wav')">Play from file system</button>
-       
-        <button class="button button-outline icon icon ion-android-done">
-          
-        </button>
-      </div> -->
+        var pong2 = new Howl({
+          // urls: ['http://www.javascriptoo.com/application/html/kingsolomonhill-TimesHasDoneGotHard-short.mp3'],
+          urls:["mp3/oboe.wav"],
+          loop: true,
+          volume: 0.5,
+          // onend: function() {
+          //   alert('Finished!');
+          // }
+        });
+
+        document.getElementById('btn2').onclick=function(){pong2.play()};
+        document.getElementById('mute').onclick=function(){pong2.pause()};
+        document.getElementById('btn21').onclick=function(){pong2.fadeIn(0.5,2000)};
+
+        // document.getElementById('btn21').onclick=function(){
+        //   pong2.pause().fadeIn(0.5, 2000);
+        // });
 
 
+        var pong3 = new Howl({
+          urls: ["mp3/oboe.wav"],
+          sprite: {
+            blast: [0, 2000],
+            laser: [300, 7000],
+            winn: [123, 200]
+            }
+        });
+
+        var choise = ["blast", "laser", "winn"]
+        var choisePong3Play
+        
+        if ( loop1 = 1){
+          choisePong3Play = choise[0]
+
+        }else if( loop1 = 2){
+          choisePong3Play = choise[1]
+        }else{
+          choisePong3Play = choise[2]
+        }
+
+        document.getElementById('btn3').onclick=function(){pong3.play("choisePong3Play")}
+        </script>
+      <div class="bar bar-footer bar-dark">
+      </div>
     </ion-pane>
   </body>
 </html>
