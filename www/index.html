@@ -22,136 +22,43 @@
     <script src="js/app.js"></script>
     <script src="js/howler.min.js"></script>
   </head>
-  <body ng-controller="myCtrl">
+  <body>
 
-    <ion-pane>
+    <ion-pane ng-controller = "SoundBoardCtrl">
+
+      <ion-header-bar class="bar-stable" >
+        <div class="buttons" >
+          <button class="button button-icon ion-ios-minus-outline"
+                  ng-click="model.showDelete = !model.showDelete; model.showMove = false;" ></button >
+        </div >
+        <h1 class="title" >Siyuan MS Project</h1 >
+        <div class="buttons" >
+          <button class="button button-icon ion-ios-plus-outline"
+                  ng-click="model.showMove = !model.showMove; model.showDelete = false;" >
+          </button >
+        </div >
+      </ion-header-bar >
+
       <ion-content>
-        <div class="row">
-          <div class="col col-25">
-            <h2 class="title">   MS project</h2>
 
-            <button class="button button-block button-dark" id = "mute">
-              MUte
-            </button>
+        <ion-list show-delete="model.showDelete"
+              show-reorder="model.showMove" >
+          <ion-item ng-repeat = "sound in model.sounds" 
+                    class="item item-icon-left item-icon-right item-remove-animate" 
+                    ng-click = "play(sound)">
+          <i class="icon ion-ios-musical-note"></i>
+          <h2>{{sound.title}}</h2>
+          <p>{{sound.note}}</p>
+          <i class="icon ion-pause"></i>
 
-           
-          </div>
+          <ion-delete-button ng-click="deleteSound($index)"
+                           class="ion-minus-circled" ></ion-delete-button >
 
-
-          <div class="col col-75">
-            <div class="row">
-              <div class="col col-25 col-offset-75">
-                <label class="item item-input">
-                <input type="number" placeholder="Set Temple">
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-
-        <button class="button button-block button-stable" id="btn">Play</button>
-    
-        
-
-        <button class="button button-block button-stable" id="btn2">Play2</button>
-        <button class="button button-block button-stable" id="btn21">Play2FadeIn</button>
-        <button class="button button-block button-stable" id="btn3" ng-click="clicked()">Play3</button>
-        
-        <input ng-model="loop1" id="startPoint" ng-change="checkValue()">
-
-      <!--   <div class="list">
-          <label class="item item-input item-select">
-            <div class="input-label">
-              L
-            </div>
-            <select ng-model="loop1">
-              <option>1000</option>
-              <option>2000</option>
-            </select>
-          </label>
-        </div>
- -->
-
-
-              <!-- <label class="item item-input" id ="lastLong" >
-                <span class="input-label"></span>
-                <input type="tel" >
-              </label> -->
-
-
-        <div id="buttons"></div>
-        
-
-
-
+          <ion-reorder-button class="ion-navicon"
+                            on-reorder="moveSound(sound, $fromIndex, $toIndex)" ></ion-reorder-button >
+          </ion-item>
+        </ion-list >
       </ion-content>
-
-
-      <script>
-
-        var app = angular.module("starter", []);
-        app.controller("myCtrl", function($scope) {
-            // $scope.loop1 = document.getElementById('startPoint').value;
-            $scope.loop1 = 1;
-            $scope.loop2 = 280;
-
-            $scope.clicked = function () {
-              console.log($scope.loop1);
-            }
-
-            $scope.checkValue = function () {
-              console.log($scope.loop1);
-            }
-
-            // $scope.lastName = "Doe";
-        });
-
-        var pong = new Howl({urls: ['http://www.javascriptoo.com/application/html/pong.wav']})
-        document.getElementById('btn').onclick=function(){pong.play()}
-
-        var pong2 = new Howl({
-          // urls: ['http://www.javascriptoo.com/application/html/kingsolomonhill-TimesHasDoneGotHard-short.mp3'],
-          urls:["mp3/oboe.wav"],
-          loop: true,
-          volume: 0.5,
-          // onend: function() {
-          //   alert('Finished!');
-          // }
-        });
-
-        document.getElementById('btn2').onclick=function(){pong2.play()};
-        document.getElementById('mute').onclick=function(){pong2.pause()};
-        document.getElementById('btn21').onclick=function(){pong2.fadeIn(0.5,2000)};
-
-        // document.getElementById('btn21').onclick=function(){
-        //   pong2.pause().fadeIn(0.5, 2000);
-        // });
-
-
-        var pong3 = new Howl({
-          urls: ["mp3/oboe.wav"],
-          sprite: {
-            blast: [0, 2000],
-            laser: [300, 7000],
-            winn: [123, 200]
-            }
-        });
-
-        var choise = ["blast", "laser", "winn"]
-        var choisePong3Play
-        
-        if ( loop1 = 1){
-          choisePong3Play = choise[0]
-
-        }else if( loop1 = 2){
-          choisePong3Play = choise[1]
-        }else{
-          choisePong3Play = choise[2]
-        }
-
-        document.getElementById('btn3').onclick=function(){pong3.play("choisePong3Play")}
-        </script>
       <div class="bar bar-footer bar-dark">
       </div>
     </ion-pane>

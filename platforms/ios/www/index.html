@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="starter">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -20,111 +20,47 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/howler.min.js"></script>
   </head>
-  <body ng-app="starter" class="platform-ios platform-cordova platform-webview">
+  <body class="platform-ios platform-cordova platform-webview">
 
-    <ion-pane>
-      
+    <ion-pane ng-controller = "SoundBoardCtrl">
+
+      <ion-header-bar class="bar-stable" >
+        <div class="buttons" >
+          <button class="button button-icon ion-ios-minus-outline"
+                  ng-click="model.showDelete = !model.showDelete; model.showMove = false;" ></button >
+        </div >
+        <h1 class="title" >Siyuan MS Project</h1 >
+        <div class="buttons" >
+          <button class="button button-icon ion-ios-plus-outline"
+                  ng-click="model.showMove = !model.showMove; model.showDelete = false;" >
+          </button >
+        </div >
+      </ion-header-bar >
+
       <ion-content>
 
-      <div class="row">
-        <div class="col col-25">
-          
-          <h2 class="title">   EarSketch</h2>
-          
+        <ion-list show-delete="model.showDelete"
+              show-reorder="model.showMove" >
+          <ion-item ng-repeat = "sound in model.sounds" 
+                    class="item item-icon-left item-icon-right item-remove-animate" 
+                    ng-click = "play(sound)">
+          <i class="icon ion-ios-musical-note"></i>
+          <h2>{{sound.title}}</h2>
+          <p>{{sound.note}}</p>
+          <i class="icon ion-pause"></i>
 
-          <button class="button button-block button-dark">
-            Show time
-          </button>
+          <ion-delete-button ng-click="deleteSound($index)"
+                           class="ion-minus-circled" ></ion-delete-button >
 
-          <button class="button button-block button-dark">
-            Undo
-          </button>
-
-          <button class="button button-block button-dark">
-            Run
-          </button>
-
-          <button class="button button-block button-dark">
-            Save
-          </button>
-        </div>
-
-
-        <div class="col col-75">
-         
-          <div class="row">
-            <div class="col col-25 col-offset-75">
-              <label class="item item-input">
-              <input type="number" placeholder="Set Temple">
-              </label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col col-20">
-             <button class="button button-block button-stable">
-              M/S
-             </button>
-            </div>
-
-            <div class="col col-20 ">
-             <button class="button button-block button-stable">
-              M/S
-             </button>
-            </div>
-
-            <div class="col col-20 ">
-             <button class="button button-block button-stable">
-              M/S
-             </button>
-            </div>
-
-            <div class="col col-20 ">
-             <button class="button button-block button-stable">
-              M/S
-             </button>
-            </div>
-
-            <div class="col col-20 ">
-             <button class="button button-block button-stable">
-              M/S
-             </button>
-            </div>
-
-            
-
-          </div>
-
-        </div>
-      </div>
-
+          <ion-reorder-button class="ion-navicon"
+                            on-reorder="moveSound(sound, $fromIndex, $toIndex)" ></ion-reorder-button >
+          </ion-item>
+        </ion-list >
       </ion-content>
-
-
       <div class="bar bar-footer bar-dark">
-
-        <button class="button button-energized">
-          Source
-        </button>
-
-        <button class="button button-balanced button-large">
-          Control
-        </button>
-
-      
-        <button class="button button-outline icon icon ion-android-done">
-          FM
-        </button>
-        <button class="button button-outline icon icon ion-android-done">
-          MB
-        </button>
-       
-        <button class="button button-outline icon icon ion-android-done">
-          
-        </button>
       </div>
-
     </ion-pane>
   </body>
 </html>
